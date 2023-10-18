@@ -133,41 +133,5 @@ public class PeriodFlowController {
     }
 
 
-    private final PaymentService paymentService;
-
-    @Autowired
-    public PeriodFlowController(PaymentService paymentService) {
-        this.paymentService = paymentService;
-    }
-
-    @GetMapping("/initiate-payment")
-    public String initiatePayment() {
-        try {
-
-            String accountId = ""; 
-            String accountPassword = ""; 
-            String amount = "10"; 
-            String fullAmount = "10.350"; 
-            String paymentType = "3"; 
-            String businessCode = "business_code"; 
-            String invoiceKey = "invoice_key"; 
-            String returnUrl = ""; 
-            String buyerMobile = "buyer_mobile_number"; 
-            String buyerEmail = "buyer_email"; 
-            String buyerName = "buyer_name"; 
-            String paymentMedia = "0"; 
-
-            // Construct and encrypt the request data
-            String encryptedData = paymentService.constructAndEncryptRequestData(accountId, accountPassword, amount, fullAmount, paymentType, businessCode, invoiceKey, returnUrl, buyerMobile, buyerEmail, buyerName, paymentMedia);
-
-            // Construct the payment URL
-            String paymentUrl = paymentService.buildPaymentUrl(encryptedData, accountId);
-
-            return "redirect:" + paymentUrl;
-        } catch (Exception e) {        
-            e.printStackTrace(); 
-            return "error-page"; 
-        }
-    }
 
 }
