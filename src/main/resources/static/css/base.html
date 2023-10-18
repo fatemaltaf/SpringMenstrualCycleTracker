@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <title>Home page</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap');
+
+        :root{
+            --main-color:#FDF0C5;
+            --black:black;
+            --bg:white;
+            --border:.1rem solid rgba(255,255,255,.3);
+        }
+
+        *{
+            font-family: 'Roboto', sans-serif;
+            margin:0; padding:0;
+            box-sizing: border-box;
+            outline: none; border:none;
+            text-decoration: none;
+            text-transform: capitalize;
+            transition: .2s linear;
+        }
+        .heading{
+            text-align: center;
+            color:black;
+            text-transform: uppercase;
+            padding-bottom: 3.5rem;
+            font-size: 4rem;
+        }
+
+        .heading span{
+            color:var(--main-color);
+            text-transform: uppercase;
+        }
+
+        .btn{
+            margin-top: 1rem;
+            display: inline-block;
+            padding:.9rem 3rem;
+            font-size: 1.7rem;
+            color:black;
+            background: var(--main-color);
+            cursor: pointer;
+        }
+
+        .btn:hover{
+            letter-spacing: .2rem;
+        }
+
+        .header{
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding:1.5rem 7%;
+            border-bottom: var(--border);
+            position: fixed;
+            top:0; left: 0; right: 0;
+            z-index: 1000;
+        }
+
+        .header .logo{
+            color:#EC2545;
+        }
+
+        .header .navbar a{
+            margin:0 1.25rem;
+            font-size: 1.25rem;
+            color:black;
+        }
+
+        .header .navbar a:hover{
+            color:var(--main-color);
+            border-bottom: .1rem solid var(--main-color);
+            padding-bottom: .5rem;
+        }
+
+        .header .navbar2 a{
+            margin:0 1.5rem;
+            font-size: 1.4rem;
+            color:#EC2545;
+        }
+        .blogs .box-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    gap:1.5rem;
+}
+
+.blogs .box-container .box{
+    border:var(--border);    
+}
+
+.blogs .box-container .box .image{
+    height: 25rem;
+    overflow:hidden;
+    width: 100%;
+}
+
+.blogs .box-container .box .image img{
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+}
+
+.blogs .box-container .box:hover .image img{
+    transform: scale(1.2);
+}
+
+.blogs .box-container .box .content{
+    padding:2rem;
+}
+
+.blogs .box-container .box .content .title{
+    font-size: 2.5rem;
+    line-height: 1.5;
+    color:#fff;
+}
+
+.blogs .box-container .box .content .title:hover{
+    color:var(--main-color);
+}
+
+.blogs .box-container .box .content span{
+    color:var(--main-color);
+    display: block;
+    padding-top: 1rem;
+    font-size: 2rem;
+}
+
+.blogs .box-container .box .content p{
+    font-size: 1.6rem;
+    line-height: 1.8;
+    color:#ccc;
+    padding:1rem 0;
+}
+
+      
+        .footer{
+            background:#c1897c;
+            text-align: center;
+        }
+
+        .footer .links{
+            margin:3rem;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding:3rem 0;
+            gap:1rem;
+        }
+
+        .footer .links a{
+            padding:.3rem 2rem;
+            color:white;
+            border:var(--border);
+            font-size: 2rem;
+        }
+
+        .footer .links a:hover{
+            background:var(--main-color);
+        }
+
+        .footer .credit{
+            margin:-3rem;
+            font-size: 1.5rem;
+            color:white;
+            font-weight: lighter;
+            padding:-10rem;
+        }
+
+        .footer .credit span{
+            color:var(--main-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+
+        <a href="#" class="logo">
+            <h2 id="logo"> Period Fl<i class="fa-solid fa-droplet"></i>w</h2>
+        </a>
+    
+        <nav class="navbar">
+            <i style="color:#F97809" class="fa-regular fa-circle-dot"></i><a href="#home">Home</a>
+            <i style="color:#F5A31C" class="fa-solid fa-calendar-days"></i><a href="#tracker">Tracker</a>
+            <i style="color:#7BE484" class="fa-sharp fa-solid fa-book-open-reader"></i><a href="#reports">Reports</a>
+            <i style="color:#3C3CDC" class="fa-sharp fa-solid fa-person-dress"></i><a href="#period guide">Period Guide</a>
+        </nav>
+
+        <nav class="navbar2">
+            <a href="#signin">Signin</a>
+            <a href="#subscribe">Subscribe</a>
+        </nav>
+ 
+    </header>
+    
+    <!-- Articles  -->
+    <section class="blogs" id="blogs">
+
+        <h1 class="heading"> our <span>blogs</span> </h1>
+    
+        <div class="box-container">
+    
+            <div class="box">
+                <div class="image">
+                    <img src="images/blog-1.jpeg" alt="">
+                </div>
+                <div class="content">
+                    <a href="#" class="title">tasty and refreshing coffee</a>
+                    <span>by admin / 21st may, 2021</span>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, dicta.</p>
+                    <a href="#" class="btn">read more</a>
+                </div>
+            </div>
+    
+            <div class="box">
+                <div class="image">
+                    <img src="images/blog-2.jpeg" alt="">
+                </div>
+                <div class="content">
+                    <a href="#" class="title">tasty and refreshing coffee</a>
+                    <span>by admin / 21st may, 2021</span>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, dicta.</p>
+                    <a href="#" class="btn">read more</a>
+                </div>
+            </div>
+    
+            <div class="box">
+                <div class="image">
+                    <img src="images/blog-3.jpeg" alt="">
+                </div>
+                <div class="content">
+                    <a href="#" class="title">tasty and refreshing coffee</a>
+                    <span>by admin / 21st may, 2021</span>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, dicta.</p>
+                    <a href="#" class="btn">read more</a>
+                </div>
+            </div>
+            <div class="box">
+                <div class="image">
+                    <img src="images/blog-3.jpeg" alt="">
+                </div>
+                <div class="content">
+                    <a href="#" class="title">tasty  coffee</a>
+                    <span>by admin / 21st may, 2021</span>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, dicta.</p>
+                    <a href="#" class="btn">read more</a>
+                </div>
+            </div>
+    
+        </div>
+    
+    </section>
+    
+
+    <!-- FOOTER -->
+    <section class="footer">
+
+        <div class="links">
+            <a href="#home">Home</a>
+            <a href="#tracker">Tracker</a>
+            <a href="#reports">Reports</a>
+            <a href="#period guide">Period Guide</a>
+        </div>
+    
+        <div class="credit">created by <span>Fatema and Akshay</span> | all rights reserved</div>
+    
+    </section>
+    
+</body>
+</html>

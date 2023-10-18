@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <title>Tracker</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap');
+        
+        :root{
+            --main-color:#FDF0C5;
+            --black:black;
+            --bg:white;
+            --border:.1rem solid rgba(255,255,255,.3);
+        }
+
+        *{
+            font-family: 'Roboto', sans-serif;
+            margin:0; padding:0;
+            box-sizing: border-box;
+            outline: none; border:none;
+            text-decoration: none;
+            text-transform: capitalize;
+            transition: .2s linear;
+        }
+        .heading{
+            text-align: center;
+            color:black;
+            text-transform: uppercase;
+            padding-bottom: 3.5rem;
+            font-size: 4rem;
+        }
+
+        .heading span{
+            color:var(--main-color);
+            text-transform: uppercase;
+        }
+
+        .btn{
+            margin-top: 1rem;
+            display: inline-block;
+            padding:.9rem 3rem;
+            font-size: 1.7rem;
+            color:black;
+            background: var(--main-color);
+            cursor: pointer;
+        }
+
+        .btn:hover{
+            letter-spacing: .2rem;
+        }
+
+        .header{
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding:1.5rem 7%;
+            border-bottom: var(--border);
+            position: fixed;
+            top:0; left: 0; right: 0;
+            z-index: 1000;
+        }
+
+        .header .logo{
+            color:#EC2545;
+        }
+
+        .header .navbar a{
+            margin:0 1.25rem;
+            font-size: 1.25rem;
+            color:black;
+        }
+
+        .header .navbar a:hover{
+            color:var(--main-color);
+            border-bottom: .1rem solid var(--main-color);
+            padding-bottom: .5rem;
+        }
+
+        .header .navbar2 a{
+            margin:0 1.5rem;
+            font-size: 1.4rem;
+            color:#EC2545;
+        }
+
+        .header .navbar2 i{
+            margin:0 -0.5rem;
+            /* margin-left:2rem; */
+            cursor: pointer;
+            font-size: 1.5rem;
+            color:#EC2545;
+        }
+
+        .popup {
+            position: relative;
+            display: inline-block;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* The actual popup */
+        .popup .popuptext {
+            visibility: hidden;
+            width: 200px;
+            background: rgba(0,0,0,0.1);
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px 0;
+            position: absolute;
+            z-index: 1;
+            top: 50%;
+            left: 50%;
+            margin-left: 70rem;
+            margin-top: 4.5rem;
+        }
+
+        /* Toggle this class - hide and show the popup */
+        .popup .show {
+            visibility: visible;
+            -webkit-animation: fadeIn 1s;
+            animation: fadeIn 1s;
+        }
+
+        /* Add animation (fade in the popup) */
+        @-webkit-keyframes fadeIn {
+            from {opacity: 0;} 
+            to {opacity: 1;}
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity:1 ;}
+        }
+
+        #prof{
+            border-radius: 5px;
+            border: 2px solid #EC2545;;
+            background: rgba(0,0,0,0.1);
+            color:#fff;
+            width: 110px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+
+        .home{
+            min-height: 110vh;
+            display: flex;
+            align-items: center;
+            background-repeat:no-repeat;
+            background-image: url([[@{/css/calendar.jpg}]]);
+            background-size: 850px;
+            background-position: center;
+            opacity: 0.8;
+        }
+
+        .home .content{
+            max-width: 60rem;
+            /* align-items: center; */
+            
+        }
+
+        .home .content .start{
+            position:relative;
+            margin-left: 30rem;
+        }
+
+        .home .content .last{
+            position:relative;
+            margin-left: 30rem;
+        } 
+
+        .home .content .date{
+            border-style:solid;
+            height:45;
+            width:250;
+            padding-left:15px;
+        }         
+
+        .bleedingbox{
+            margin-left: 10rem;
+        }
+
+        /* .icon{
+            cursor: pointer;
+        } */
+        .icon-blood{
+            font-family: 'Roboto', sans-serif;
+            color: #EC2545;
+            font-weight: 1000;
+            
+
+        }
+        .icon-emotions{
+            font-family: 'Roboto', sans-serif;
+            color:#3C3CDC;
+            font-weight: 1000;
+        
+        }
+        .icon-pain{
+            font-family: 'Roboto', sans-serif;
+            color:#F5A31C;
+            font-weight: 1000;
+            
+        }
+        .blood{
+            margin-left: 30rem;
+        }
+        .emotions{
+            margin-top: 10rem;
+            margin-left: 30rem;
+
+        }
+        .pain{
+            margin-top: 10rem;
+            margin-left: 30rem;
+        }
+
+        .grid-even-columns{
+            display: grid;
+            gap: 6rem;
+            grid-template-columns: 0.3fr 0.3fr ;
+        }
+      
+        #butt{
+            background-color:#EC2545;
+            width:100px;
+            height:40px;
+            margin-left: 14rem;
+            text-align:center;
+            color:white;
+            font-size: 25px;
+            font-weight: bold;
+            border:none;
+            border-radius:0px;
+            cursor:pointer;
+        }
+
+        .footer{
+            background:#c1897c;
+            text-align: center;
+        }
+
+        .footer .links{
+            margin:3rem;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding:3rem 0;
+            gap:1rem;
+        }
+
+        .footer .links a{
+            padding:.3rem 2rem;
+            color:white;
+            border:var(--border);
+            font-size: 2rem;
+        }
+
+        .footer .links a:hover{
+            background:var(--main-color);
+        }
+
+        .footer .credit{
+            margin:-3rem;
+            font-size: 1.5rem;
+            color:white;
+            font-weight: lighter;
+            padding:-10rem;
+        }
+
+        .footer .credit span{
+            color:var(--main-color);
+        }
+    </style>
+</head>
+<body>
+<form th:action="@{/report}" th:object="${tracker}" method="post">
+
+    <!-- HEADER -->
+    <header class="header">
+
+        <a href="#" class="logo">
+            <h2 id="logo"> Period Fl<i class="fa-solid fa-droplet"></i>w</h2>
+        </a>
+    
+        <nav class="navbar">
+            <i style="color:#F97809" class="fa-regular fa-circle-dot"></i><a th:href="@{/periodflow/home}">Home </a>
+            <i style="color:#F5A31C" class="fa-solid fa-calendar-days"></i><a th:href="@{/periodflow/tracker}">Tracker</a>
+            <i style="color:#7BE484" class="fa-sharp fa-solid fa-book-open-reader"></i><a th:href="@{/report}">Reports</a>
+            <i style="color:#3C3CDC" class="fa-sharp fa-solid fa-person-dress"></i><a th:href="@{/periodflow/PeriodGuide}">Period Guide</a>
+        </nav>
+
+        <nav class="navbar2">
+            <a th:href="@{/periodflow/register}">Signin </a>
+            <a th:href="@{/login}">Login</a>
+            <a th:href="@{/periodflow/subscription}">Subscribe</a>
+            <div class="popup" onclick="myFunction()"><i class="fa-solid fa-user" id="uicon"></i></div>
+        </nav>
+ 
+    </header>
+
+    <!-- user profile pop up -->
+    <div class="popup">
+        <span class="popuptext" id="myPopup"><h2>
+                <h2><i class="fa-solid fa-circle-info"></i> User:</h2><div sec:authorize="isAuthenticated()"><span sec:authentication="name"></span></div> <hr>
+                <button value="submit" id="prof" th:formaction="@{/logout}" ><i class="fa-sharp fa-solid fa-arrow-right-from-bracket"></i> Log out</button>
+        </span>
+      </div>
+      
+      <script>
+      function myFunction() {
+        var popup = document.getElementById("myPopup");
+        popup.classList.toggle("show");
+      }
+      </script>
+
+    <section class="home" >
+        <div class="content" >
+            <div style = "position:relative; top:5rem;">
+                <label class="start" style="color:blueviolet; font-size:30px; font-weight: bold;" >Period Start date</label><input id="sd" style="border:solid 1px red; border-radius:5px;  width:130px; height:55px; padding-left:15px;" type="date" value="" th:field="*{start_date}">
+            </div>
+            <div style = "position:relative; top:7rem;">
+                <label class="last" style="color:blue; font-size:30px; font-weight: bold;">Period Last date</label><input id="ld" style="border:solid 1px red; border-radius:5px;  width:132px; height:55px; padding-left:16px; margin-left:0.5rem;" type="date" value="" th:field="*{last_date}">
+            </div>
+        </div>
+    </section>
+
+    <div class="blood">
+        <div class="grid-even-columns">
+            <div class="flow">
+                <img class="icon" th:src="@{/css/blood1.png}" height="100" width="100">
+                <span class="icon-blood">
+                    <input th:field="*{blood_flow}" type="checkbox" id="option1" name="option1" value="light"/> Light 
+                </span>
+            </div>
+            <div class="flow">
+            <img class="icon" th:src="@{/css/blood2.png}" height="100" width="100">
+            <span class="icon-blood">
+                <input th:field="*{blood_flow}" type="checkbox" id="option2" name="option2" value="medium"/> Medium
+            </span>
+            </div>
+            <div class="flow">
+                <img class="icon" th:src="@{/css/blood3.png}" height="100" width="100">
+                <span class="icon-blood">
+                    <input th:field="*{blood_flow}" type="checkbox" id="option3" name="option3" value="heavy"/> Heavy
+                </span>
+            </div>
+            <div class="flow">
+               <img class="icon" th:src="@{/css/bloodcells.png}" height="100" width="100">
+               <span class="icon-blood">
+                    <input th:field="*{blood_flow}" type="checkbox" id="option4" name="option4" value="spotting"/> Spotting
+                </span>
+            </div>
+              
+       </div>  
+    </div>
+    <div class="emotions">
+      <div class="grid-even-columns">
+            <div class="flow">
+                <img class="icon" th:src="@{/css/smile.png}" height="100" width="100">
+                <span class="icon-emotions">
+                    <input th:field="*{emotions}" type="checkbox" id="option1" name="option1" value="Happy"/> Happy
+                </span>
+            </div>
+            <div class="flow">
+                <img class="icon" th:src="@{/css/sad.png}" height="100" width="100">
+                <span class="icon-emotions">
+                    <input th:field="*{emotions}" type="checkbox" id="option2" name="option2" value="Sad"/> Sad
+                </span>
+            </div>
+            <div class="flow">
+                <img class="icon" th:src="@{/css/scream.png}" height="100" width="100">
+                <span class="icon-emotions">
+                    <input th:field="*{emotions}" type="checkbox" id="option3" name="option3" value="Sensitive"/> Sensitive
+                </span>
+            </div>
+            <div class="flow">
+                <img class="icon" th:src="@{/css/bad.png}" height="100" width="100">
+                <span class="icon-emotions">
+                    <input th:field="*{emotions}" type="checkbox" id="option4" name="option4" value="Angry"/> Angry
+                </span>
+            </div>     
+        </div>  
+    </div>
+    <div class="pain">
+        <div class="grid-even-columns">
+            <div class="flow">
+            <img class="icon" th:src="@{/css/stomach.png}" height="100" width="100"> 
+            <span class="icon-pain">
+                <input th:field="*{pain}" type="checkbox" id="option1" name="option1" value="Cramps"/> Cramps
+            </span>
+           </div>
+           <div class="flow">
+           <img class="icon" th:src="@{/css/menstruation.png}" height="100" width="100">
+           <span class="icon-pain">
+            <input th:field="*{pain}" type="checkbox" id="option2" name="option2" value="Ovulation"/> Ovulation
+           </span>
+            </div>
+           <div class="flow">
+           <img class="icon" th:src="@{/css/Headache.png}" height="100" width="100">
+           <span class="icon-pain">
+            <input th:field="*{pain}" type="checkbox" id="option3" name="option3" value="Headache"/> Headache
+           </span>
+              </div>
+           <div class="flow">
+               <img class="icon" th:src="@{/css/dizziness.png}" height="100" width="100">
+               <span class="icon-pain">
+                <input th:field="*{pain}" type="checkbox" id="option4" name="option4" value="Dizziness"/> Dizziness
+               </span>
+            </div>
+              
+       </div>  
+       <button id=butt>Done!</button>
+    </div>
+    
+    <!-- FOOTER -->
+    <section class="footer">
+
+        <div class="links">
+            <a th:href="@{/periodflow/home}">Home</a>
+            <a th:href="@{/periodflow/tracker}"> Tracker</a>
+            <a th:href="@{/report}">Reports</a>
+            <a th:href="@{/periodflow/PeriodGuide}">Period Guide</a>
+        </div>
+    
+        <div class="credit">created by <span>Fatema and Akshay</span> | all rights reserved</div>
+    
+    </section>
+    </form>
+    
+</body>
+</html>

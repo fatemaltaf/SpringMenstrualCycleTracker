@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <title>Survey</title>
+    <!-- custom css file link  -->
+    <link rel="stylesheet" type="text/css" media="all"  href="/css/survey.css" th:href="@{/css/survey.css}"> 
+</head>
+<body>
+    <h2 id="logo"> Period Fl<i class="fa-solid fa-droplet"></i>w</h2>
+<div class="glass">
+<div class="container">
+<form class="form" action="#" th:action="@{/add}" th:object="${survey}"  method="POST">
+    <div>
+        <h2>SURVEY</h2>
+    </div>
+    <div class="form-group">
+        <label>1. Do you track your period?</label> </br> &emsp;
+        <label>Yes <input th:field="*{question1}" class="form-control form-control-sm" type="radio" name="1" value="yes"/> &emsp; </label>
+        <label>No <input th:field="*{question1}" class="form-control form-control-sm" type="radio" name="1" value="no"/> </label>
+    </div>
+    <div class="form-group"> 
+        <label>2. Do you get your periods regularly?</label> </br> &emsp;
+        <label>Yes <input th:field="*{question2}" class="form-control form-control-sm" type="radio" name="2" value="yes"/> &emsp; </label>
+        <label>No <input th:field="*{question2}" class="form-control form-control-sm" type="radio" name="2" value="no"/> </label>
+    </div>
+    <div class="form-group">
+        <label>3. What period product do you use most often?</label> </br> &emsp;
+        <label> <input th:field="*{question3}" class="form-control form-control-sm" type="checkbox" id="option1" name="option1" value="Pads"/> Pads &emsp; </label>
+        <label> <input th:field="*{question3}" class="form-control form-control-sm" type="checkbox" id="option2" name="option2" value="Tampons"/> Tampons &emsp; </label>
+        <label> <input th:field="*{question3}" class="form-control form-control-sm" type="checkbox" id="option3" name="option3" value="Menstrual cups"/> Menstrual cups </label>
+    </div>
+    <div class="form-group">
+        <label>4. How would you describe your menstrual flow?</label> </br> &emsp;
+        <label> <input th:field="*{question4}" class="form-control form-control-sm" type="checkbox" id="option1" name="option1" value="Light"/> Light &emsp; </label>
+        <label> <input th:field="*{question4}" class="form-control form-control-sm" type="checkbox" id="option2" name="option2" value="Medium"/> Medium &emsp; </label>
+        <label> <input th:field="*{question4}" class="form-control form-control-sm" type="checkbox" id="option3" name="option3" value="High"/> High </label>
+    </div>
+    <div class="form-group">
+        <label>5. Do you get cramps before your period?</label> </br> &emsp;
+        <label>Yes <input th:field="*{question5}" class="form-control form-control-sm" type="radio" name="3" value="yes"/> &emsp; </label>
+        <label>No <input th:field="*{question5}" class="form-control form-control-sm" type="radio" name="3" value="no"/> </label>
+    </div>
+    <div class="form-group">
+        <label>6. Do you have any reproductive health disorders (endometriosis, PCOS, etc)?</label> </br> &emsp;
+        <label>Yes <input th:field="*{question6}" class="form-control form-control-sm" type="radio" name="4" value="yes"/> &emsp; </label>
+        <label>No <input th:field="*{question6}" class="form-control form-control-sm" type="radio" name="4" value="no"/> </label>
+    </div>
+    <div>
+        <a th:href="@{/periodflow/home}"></a><input type="submit" id="submitbut"/></a>
+    </div>
+</form>
+</div>
+</div>    
+            
+</body>
+</html>

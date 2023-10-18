@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>LoginPage</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" type="text/css" media="all"  href="/css/login.css" th:href="@{/css/login.css}"> 
+</head>
+<body>
+<h2 id="logo"> Period Fl<i class="fa-solid fa-droplet"></i>w</h2>
+<center>
+<form th:action="@{/login}" method="post">
+<div id="loginscr">
+<h2 id="one">Login Form</h1>
+<br>
+<br>
+<label id=alignLabel>Email</label> &ensp; <input type=email class=em name="email" placeholder="Email Address" value="" required/>
+<br>
+<br>
+<label id=alignLabel>Password</label> &ensp; <input type=password class=em name="password" id="password" placeholder="Password" value="" maxlength="20" minlength="8" required/>
+<br>
+<br>
+<label id=alignLabel>Confirm Password</label> &ensp; <input type=password class=em  id="confirm_password" name="confirmpassword" placeholder="confirm password" maxlength="20" minlength="8" required/> 
+<br>
+<br>
+<a th:href="@{/periodflow/home}"><button id=butt>Login</button></a>
+<br>
+<br>
+<font color=white size=2 >Not a member?</font> <label id=thr> <font color=#EC2545 size=2> &ensp; <a th:href="@{/periodflow/register}">Signup Now </a> </font> </label>
+</form>
+</center>
+<script>
+    var password = document.getElementById("password")
+    , confirm_password = document.getElementById("confirm_password");
+
+    function validatePassword(){
+     if(password.value != confirm_password.value) {
+       confirm_password.setCustomValidity("Passwords Don't Match");
+    } else {
+      confirm_password.setCustomValidity('');
+     }
+    	}
+		password.onchange = validatePassword;
+    	confirm_password.onkeyup = validatePassword;
+</script>
+<script type="text/javascript" th:inline="javascript">
+  if([[${param.error}]]){
+    alert("Invalid username and password");
+  }
+  else if ([[${param.logout}]]) {
+    alert("User Logged out");
+  } 
+  else {
+    alert("Please login to track your periods");
+  }
+</script>
+</body>
+</html>

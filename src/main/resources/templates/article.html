@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <title>Period Guide</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap');
+
+        :root{
+            --main-color:#FDF0C5;
+            --black:black;
+            --bg:white;
+            --border:.1rem solid rgba(255,255,255,.3);
+        }
+
+        *{
+            font-family: 'Roboto', sans-serif;
+            margin:0; padding:0;
+            box-sizing: border-box;
+            outline: none; border:none;
+            text-decoration: none;
+            text-transform: capitalize;
+            transition: .2s linear;
+        }
+        .heading{
+            text-align: center;
+            color:black;
+            text-transform: uppercase;
+            padding-bottom: 3.5rem;
+            font-size: 4rem;
+        }
+
+        .heading span{
+            color:var(--main-color);
+            text-transform: uppercase;
+        }
+
+        .btn{
+            margin-top: 1rem;
+            display: inline-block;
+            padding:.9rem 3rem;
+            font-size: 1.7rem;
+            color:black;
+            background: var(--main-color);
+            cursor: pointer;
+        }
+
+        .header{
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding:1.5rem 7%;
+            border-bottom: var(--border);
+            position: fixed;
+            top:0; left: 0; right: 0;
+            z-index: 1000;
+        }
+
+        .header .logo{
+            color:#EC2545;
+        }
+
+        .header .navbar a{
+            margin:0 1.25rem;
+            font-size: 1.25rem;
+            color:black;
+        }
+
+        .header .navbar a:hover{
+            color:var(--main-color);
+            border-bottom: .1rem solid var(--main-color);
+            padding-bottom: .5rem;
+        }
+
+        .header .navbar2 a{
+            margin:0 1.5rem;
+            font-size: 1.4rem;
+            color:#EC2545;
+        }
+
+        .header .navbar2 i{
+            margin:0 -0.5rem;
+            /* margin-left:2rem; */
+            cursor: pointer;
+            font-size: 1.5rem;
+            color:#EC2545;
+        }
+
+        .popup {
+            position: relative;
+            display: inline-block;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* The actual popup */
+        .popup .popuptext {
+            visibility: hidden;
+            width: 200px;
+            background: rgba(0,0,0,0.1);
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px 0;
+            position: absolute;
+            z-index: 1;
+            top: 50%;
+            left: 50%;
+            margin-left: 70rem;
+            margin-top: 4.5rem;
+        }
+
+        /* Toggle this class - hide and show the popup */
+        .popup .show {
+            visibility: visible;
+            -webkit-animation: fadeIn 1s;
+            animation: fadeIn 1s;
+        }
+
+        /* Add animation (fade in the popup) */
+        @-webkit-keyframes fadeIn {
+            from {opacity: 0;} 
+            to {opacity: 1;}
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity:1 ;}
+        }
+
+        #prof{
+            border-radius: 5px;
+            border: 2px solid #EC2545;;
+            background: rgba(0,0,0,0.1);
+            color:#fff;
+            width: 110px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+       
+        .home .content{
+            max-width: 60rem;
+        }
+
+        .home .content h3{
+            font-size: 4rem;
+            text-transform: uppercase;
+            color:rebeccapurple;
+        }
+
+        
+        
+        .blogs .heading{
+            margin-top: 5rem;
+            color:#c1897c;
+        }
+        
+        .blogs .box-container{
+            display: grid;
+            margin-left: 1.2rem;
+            
+            grid-template-columns: repeat(auto-fit, minmax(6rem, 1fr));
+            gap:1.5rem;
+        }
+
+        .blogs .box-container .box{
+            border:.1rem solid black;    
+        }
+
+        .blogs .box-container .box .image{
+            height: 15rem;
+            overflow:hidden;
+            width: 100%;
+        }
+
+        .blogs .box-container .box .image img{
+            height: 100%;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .blogs .box-container .box:hover .image img{
+            transform: scale(1.2);
+        }
+
+        .blogs .box-container .box .content{
+            padding:2rem;
+        }
+
+        .blogs .box-container .box .content .title{
+            font-size: 1.3rem;
+            font-weight:500;
+            line-height: 1.5;
+            color:black;
+        }
+
+        .blogs .box-container .box .content .title:hover{
+            color:var(--main-color);
+        }
+
+        .blogs .box-container .box .content span{
+            color:var(--main-color);
+            display: block;
+            padding-top: 1rem;
+            font-size: 1rem;
+        }
+
+        .blogs .box-container .box .content p{
+            font-size: 1.5rem;
+            line-height: 1.8;
+            color:rgb(19, 15, 15);
+            padding:1rem 0;
+        }
+        .box-container .btn{
+            font-size: 1rem;
+        }
+        .ftext{
+            font-size: 1.5rem;
+            margin-top: 5rem;
+            margin-left: 6rem;
+        }
+        
+
+        details{
+       
+         color: black;
+           margin-left: 5rem;   
+           margin-top: 2rem;      
+          font-size: 1.5rem;
+        }
+
+        summary {
+        padding: .5em 1.3rem;
+        list-style: none;
+        display: flex;
+        justify-content: space-between;  
+        transition: height 1s ease;
+        }
+
+        summary::-webkit-details-marker {
+        display: none;
+        }
+
+        summary:after{
+        content: "\002B";
+        }
+
+        details[open] summary {
+            border-bottom: 1px solid rgb(255, 255, 255);
+            margin-bottom: .5em;
+        }
+
+        details[open] summary:after{
+        content: "\00D7";
+        }
+
+        details[open] div{
+        padding: .3em 1em;
+        }
+        .footer{
+            background:#c1897c;
+            text-align: center;
+        }
+
+        .footer .links{
+            margin:3rem;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding:3rem 0;
+            gap:1rem;
+        }
+
+        .footer .links a{
+            padding:.3rem 2rem;
+            color:white;
+            border:var(--border);
+            font-size: 2rem;
+        }
+
+        .footer .links a:hover{
+            background:var(--main-color);
+        }
+
+        .footer .credit{
+            margin:-3rem;
+            font-size: 1.5rem;
+            color:white;
+            font-weight: lighter;
+            padding:-10rem;
+        }
+
+        .footer .credit span{
+            color:var(--main-color);
+        }
+    </style>
+</head>
+<body>
+    <form th:action="@{/homepage}" method="post">
+    <!-- HEADER -->
+    <header class="header">
+
+        <a href="#" class="logo">
+            <h2 id="logo"> Period Fl<i class="fa-solid fa-droplet"></i>w</h2>
+        </a>
+    
+        <nav class="navbar">
+            <i style="color:#F97809" class="fa-regular fa-circle-dot"></i><a th:href="@{/periodflow/home}">Home</a>
+            <i style="color:#F5A31C" class="fa-solid fa-calendar-days"></i><a th:href="@{/periodflow/tracker}">Tracker </a>
+            <i style="color:#7BE484" class="fa-sharp fa-solid fa-book-open-reader"></i><a th:href="@{/report}">Reports</a>
+            <i style="color:#3C3CDC" class="fa-sharp fa-solid fa-person-dress"></i><a th:href="@{/periodflow/PeriodGuide}">Period Guide</a>
+        </nav>
+
+        <nav class="navbar2">
+            <a th:href="@{/periodflow/register}">Signin </a>
+            <a th:href="@{/login}">Login</a>
+            <a th:href="@{/periodflow/subscription}">Subscribe</a>
+            <div class="popup" onclick="myFunction()"><i class="fa-solid fa-user" id="uicon"></i></div>
+        </nav>
+ 
+    </header>
+   
+    <!-- user profile pop up -->
+    <div class="popup">
+        <span class="popuptext" id="myPopup"><h2>
+                <h2><i class="fa-solid fa-circle-info"></i> User:</h2><div sec:authorize="isAuthenticated()"><span sec:authentication="name"></span></div> <hr>
+                <button value="submit" id="prof" th:formaction="@{/logout}" ><i class="fa-sharp fa-solid fa-arrow-right-from-bracket"></i> Log out</button>
+        </span>
+      </div>
+      
+      <script>
+      function myFunction() {
+        var popup = document.getElementById("myPopup");
+        popup.classList.toggle("show");
+      }
+      </script>
+    
+    <!-- blogs section starts  -->
+
+    <section class="blogs" id="blogs">
+        
+        <h1 class="heading"> Period Products </h1>
+
+        <div class="box-container">
+                <div class="box">
+                <div class="image">
+                    <img th:src="@{/css/pad.jpg}" alt="">
+                </div>
+                <div class="content">
+                    <a href="#" class="title">How to use Menstrual Products</a>
+                    <!-- <span>by admin / 21st may, 2021</span> -->
+                    <p>Pads: Pads have “wings” or flaps that fold over the sides of your underwear to protect against leaks and stains.<br>
+                        Menstrual cups: Menstrual cups are shaped like little bells or bowls, and they’re made of rubber, silicone, or soft plastic. 
+                        You wear the cup inside your vagina, and it collects menstrual blood. 
+                        Most cups are reusable other are disposable
+                       </p>
+                    <a href="https://helloclue.com/articles/culture/how-to-use-a-menstrual-cup" class="btn">read more</a>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="image">
+                    <img th:src="@{/css/tampon.jpg}" alt="">
+                </div>
+                <div class="content">
+                    <a href="#" class="title">Tampons: questions & misconceptions</a>
+                    <!-- <span>by admin / 21st may, 2021</span> -->
+                    <p>Tampons are little plugs made of cotton that fit inside your vagina and soak up menstrual blood. 
+                        Some of them come with an applicator that helps you put in the tampon.
+                        It has a string attached to the end, so you can easily pull them out.</p></br>
+                    <a href="https://helloclue.com/articles/culture/tampons-questions-and-misconceptions" class="btn">read more</a>
+
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="image">
+                    <img th:src="@{/css/menstrual-cup.jpg}" alt="">
+                </div>
+                <div class="content">
+                    <a href="#" class="title">A short history of modern menstrual products</a>
+                    <!-- <span>by admin / 21st may, 2021</span> -->
+                    <p>
+                        How did we end up with the tampons and pads we all know?<br>
+                        How did we move from bandages and plant fibers to menstrual cups and modern tampons?<br>
+                         And as period technologies improve, what have they changed for the people who use them?
+                    </p></br>
+                    <a href="https://helloclue.com/articles/culture/a-short-history-of-modern-menstrual-products" class="btn">read more</a>
+                </div>
+            </div>
+
+        </div>
+ 
+
+    </section>
+    <section class="blogs" id="blogs">
+        
+        <h1 class="heading"> Nutrition </h1>
+
+        <div class="box-container">
+                <div class="box">
+                <div class="image">
+                    <img th:src="@{/css/salad.jpg}" alt="">
+                </div>
+                <div class="content">
+                    <a href="#" class="title">What to eat during periods?</a>
+                    <!-- <span>by admin / 21st may, 2021</span> -->
+                    <p>What foods are better to consume during different phases of the cycle<br>
+                        Cravings and increased hunger during the luteal phase (PMS)<br>
+                        Different vitamins and minerals, why they are necessary for women, and how they affect the body when menstruating.
+                       </p>
+                    <a href="https://www.medicalnewstoday.com/articles/what-to-eat-on-your-period#foods-to-avoid" class="btn">read more</a>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="image">
+                    <img th:src="@{/css/alcohol.jpg}" alt="">
+                </div>
+                <div class="content">
+                    <a href="#" class="title">Alcohol and the menstrual cycle</a>
+                    <!-- <span>by admin / 21st may, 2021</span> -->
+                    <p>How drinking booze can affect the cycle (or not)?<br>
+                        Your cycle may influence how much alcohol you drink<br>
+                        Will having a few drinks throw off my cycle?<br>
+                        Can alcohol affect your fertility?
+
+                    </p></br>
+                    <a href="https://helloclue.com/articles/cycle-a-z/alcohol-cycle" class="btn">read more</a>
+
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="image">
+                    <img th:src="@{/css/coffee.jpg}" alt="">
+                </div>
+                <div class="content">
+                    <a href="#" class="title">The effect of caffeine on PMS</a>
+                    <!-- <span>by admin / 21st may, 2021</span> -->
+                    <p>
+                        What is the biological effect of caffeine?<br>
+                        Caffeine and PMS<br>
+                         And as period technologies improve, what have they changed for the people who use them?
+                         Caffeine, usually from coffee, could be considered one the world’s “favorite drugs” 
+                        
+                    </p></br>
+                    <a href="https://helloclue.com/articles/cycle-a-z/effect-caffeine-on-pms" class="btn">read more</a>
+                </div>
+            </div>
+
+        </div>
+ 
+
+    </section>
+    <section class="blogs" id="blogs">
+        
+        <h1 class="heading"> Exercises </h1>
+
+        <div class="box-container">
+                <div class="box">
+                <div class="image">
+                    <img th:src="@{/css/workout.jpg}" alt="">
+                </div>
+                <div class="content">
+                    <a href="#" class="title">Best Workouts to Do on Your Period</a>
+                    <!-- <span>by admin / 21st may, 2021</span> -->
+                    <p>Working out on your period can often feel uncomfortable but there are things you can do to relieve yourself from cramps and even give your body a good energy boost.<br>
+                        
+                         Movement and stimulation could be much more effective for fast relief.
+                       </p>
+                    <a href="https://elara.care/fitness/best-workouts-to-do-on-your-period/" class="btn">read more</a>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="image">
+                    <img th:src="@{/css/swim.jpg}" alt="">
+                </div>
+                <div class="content">
+                    <a href="#" class="title">Can you swim on your period?</a>
+                    <!-- <span>by admin / 21st may, 2021</span> -->
+                    <p>It is not unhygienic to swim while menstruating<br>
+                        Swimming can relieve period cramps<br>
+                        Low-intensity exercise like swimming can actually help to relieve menstrual cramps.<br>
+                        Research also shows that swimming can reduce premenstrual syndrome (PMS). 
+                        
+
+                    </p></br>
+                    <a href="https://helloclue.com/articles/cycle-a-z/can-you-swim-on-your-period" class="btn">read more</a>
+
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="image">
+                    <img th:src="@{/css/gym.jpg}" alt="">
+                </div>
+                <div class="content">
+                    <a href="#" class="title">How your menstrual cycle affects strength training</a>
+                    <!-- <span>by admin / 21st may, 2021</span> -->
+                    <p>
+                        Don't skip strength training in the first part of your cycle.
+                        Don't beat yourself up in the second part of your cycle.<br>
+                        It found the risk was highest in the days leading up to ovulation, when estrogen is high 
+                        
+                    </p></br>
+                    <a href="https://helloclue.com/articles/cycle-a-z/how-your-menstrual-cycle-affects-strength-training" class="btn">read more</a>
+                </div>
+            </div>
+
+        </div>
+     </section>
+     <section class="FAQ">
+        <div class="ftext"> <h3>Frequently Asked Questions</h3> </div>
+        <div class="faq">
+            
+            <details>
+            <summary>How often should we change our pad?</summary>
+            <div>
+           <P>
+            You should change your pad depending on your flow.<br>
+            It may seem like you bleed a lot during your period, but most girls normally lose between 4 and 12 teaspoons of blood during an average period.
+            In the first 1-2 days of your period, you may bleed more heavily and need to change it often. 
+            If you are using pads with high absorbing capacity, then you can wear these for as long as 8 hours. 
+            Like when you are sleeping at night
+           </P>
+            </div>
+          </details>
+          <details>
+            <summary>How long will my period last?</summary>
+            <div>
+           <P>
+            Most girls and women find that periods last for about 5-7 days, and that they get their period approximately once a month.
+             After a couple of years of having your period your body will settle into a pattern that’s unique to you, and you'll be familiar with how many days of bleeding to expect. 
+             If you notice that you don’t get your period very often, or if it lasts for longer than 7 days, it might be a good idea to check in with your doctor.
+           </P>
+            </div>
+          </details>
+          <details>
+            <summary>What's Discharge?</summary>
+            <div>
+           <P>
+            Vaginal discharge happens to every woman and it is your body's way of keeping your vagina clean and healthy. 
+            You’ll notice that discharge tends to changes in both color and appearance over the course of the month, and that normal discharge ranges in color from colorless to yellow and has no smell. 
+            If you notice any changes or if you aren’t sure if your discharge is normal, you can always ask your doctor.
+           </P>
+            </div>
+          </details>
+          <details>
+            <summary>What is premenstrual syndrome(PMS)?</summary>
+            <div>
+           <P>
+            PMS is a group of symptoms that are linked to the menstrual cycle.
+             Symptoms usually begin before menstrual bleeding starts and then stop once menstrual bleeding begins. 
+             For some women, PMS symptoms include mild cramps or some bloating. 
+            For other women, PMS symptoms include severe pelvic pain, headaches, and fatigue.
+           </P>
+            </div>
+          </details>
+          <details>
+            <summary>Is it normal to have no pain during periods?</summary>
+            <div>
+           <P>
+            Not every woman or girl experiences period pain. For some, menstruation is entirely painless and problem-free. Be happy if you are one of them!
+           </P>
+            </div>
+          </details>
+          </div>
+     </section>
+    <!-- FOOTER -->
+    <section class="footer">
+
+        <div class="links">
+            <a th:href="@{/periodflow/home}">Home</a>
+            <a th:href="@{/periodflow/tracker}">Tracker</a>
+            <a th:href="@{/report}">Reports</a>
+            <a th:href="@{/periodflow/PeriodGuide}">Period Guide</a>
+        </div>
+    
+        <div class="credit">created by <span>Fatema and Akshay</span> | all rights reserved</div>
+    
+    </section>
+</form>
+<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script> 
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <title>Payment</title>
+    <!-- custom css file link  -->
+    <link rel="stylesheet" type="text/css" media="all"  href="/css/pymt.css" th:href="@{/css/pymt.css}">
+
+</head>
+<body>
+    <h2 id="logo"> Period Fl<i class="fa-solid fa-droplet"></i>w</h2>
+<div class="glass">
+<div class="container">
+
+    <form th:action="@{/PaymentDone}" th:object="${subscription}" method="post" id="formm">
+
+        <div class="row">
+
+            <div class="col">
+
+                <h3 class="title">billing address</h3>
+
+                <div class="inputBox">
+                    <span>full name :</span>
+                    <input type="text" th:field="*{fullname}" placeholder="Enter your full name" required onkeypress="return (event.charCode > 64 && 
+                    event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)"> 
+                </div>
+                <div class="inputBox">
+                    <span>email :</span>
+                    <input type="email" th:field="*{email}" placeholder="example@example.com" required>
+                </div>
+                <div class="inputBox">
+                    <span>address :</span>
+                    <input type="text" th:field="*{address}" placeholder="room - street - locality" required>
+                </div>
+                <div class="inputBox">
+                    <span>city :</span>
+                    <input type="text" th:field="*{city}" placeholder="mumbai" required onkeypress="return (event.charCode > 64 && 
+                    event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)">
+                </div>
+
+                <div class="flex">
+                    <div class="inputBox">
+                        <span>state :</span>
+                        <input type="text" th:field="*{state}" placeholder="State" required onkeypress="return (event.charCode > 64 && 
+                        event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)">
+                    </div>
+                    <div class="inputBox">
+                        <span>zip code :</span>
+                        <input type="number" th:field="*{zipcode}" placeholder="123 456" minlength="6" maxlength="6" required>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col">
+
+                <h3 class="title">payment</h3>
+
+                <div class="inputBox">
+                    <span>cards accepted :</span>
+                    <img src="/css/card_img.png" alt="">
+                </div>
+                <div class="inputBox">
+                    <span>name on card :</span>
+                    <input type="text" th:field="*{card_name}" placeholder="Name on card" required onkeypress="return (event.charCode > 64 && 
+                    event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)">
+                </div>
+                <div class="inputBox">
+                    <span>card number :</span>
+                    <input type="number" th:field="*{card_number}" placeholder="1111-2222-3333-4444" minlength="16" maxlength="16" required>
+                </div>
+                <div class="inputBox">
+                    <span>expiry date :</span>
+                    <input type="date" th:field="*{expiry_date}" placeholder="mm/yyyy" minlength="7" maxlength="7" required>
+                </div>
+
+                <div class="flex">
+                    <div class="inputBox">
+                        <span>CVV :</span>
+                        <input type="number" th:field="*{cvv_number}" placeholder="123" minlength="3" maxlength="3" required>
+                    </div>
+                    <div class="inputBox">
+                        <span>pin :</span>
+                        <input type="password" th:field="*{pin}" placeholder="1234" minlength="4" maxlength="4" required>
+                    </div>
+                </div>
+
+            </div>
+    
+        </div>
+
+        <a th:href="@{/periodflow/survey}"><input type="submit" value="proceed to checkout" class="submit-btn"> </a>
+
+    </form>
+</div>
+</div>    
+    
+</body>
+</html>

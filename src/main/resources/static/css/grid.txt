@@ -1,0 +1,20 @@
+  <div class="grid-container">
+        <div class="grid-item"> <img src="blood1.png" height="150" width="150"></div>
+        <div class="grid-item"><img src="blood2.png" height="150" width="150"></div>
+        <div class="grid-item"> <img src="blood3.png" height="150" width="150"></div>
+        
+    <div class="btn first" input type="text">Bleeding</div>
+    
+    <div class="grid-item"><img src="happy.png" height="150" width="150"></div>
+    <div class="grid-item"><img src="sad1.png" height="150" width="150"></div>
+    <div class="grid-item"><img src="sad pain.png" height="150" width="150"></div>
+        <!-- <img src="angry.png" height="150" width="150"> -->
+    <div class="btn second" input type="text">Emotions</div>
+    
+    <div class=" pain box">
+        <div class="grid-item"> <img src="stomach.png" height="150" width="150"></div>
+        <div class="grid-item"><img src="cramps.png" height="150" width="150"></div>
+        <div class="grid-item"> <img src="pain (1).png" height="150" width="150"></div>
+        <!-- <img src="breast.png" height="150" width="150"> -->
+    <div class="btn third" input type="text">Pain</div>
+      </div>

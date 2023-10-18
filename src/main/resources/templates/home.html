@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <title>Home page</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap');
+
+        :root{
+            --main-color:#FDF0C5;
+            --black:black;
+            --bg:white;
+            --border:.1rem solid rgba(255,255,255,.3);
+        }
+
+        *{
+            font-family: 'Roboto', sans-serif;
+            margin:0; padding:0;
+            box-sizing: border-box;
+            outline: none; border:none;
+            text-decoration: none;
+            text-transform: capitalize;
+            transition: .2s linear;
+        }
+        .heading{
+            text-align: center;
+            color:black;
+            text-transform: uppercase;
+            padding-bottom: 3.5rem;
+            font-size: 4rem;
+        }
+
+        .heading span{
+            color:var(--main-color);
+            text-transform: uppercase;
+        }
+
+        .btn{
+            margin-top: 1rem;
+            display: inline-block;
+            padding:.9rem 3rem;
+            font-size: 1.7rem;
+            color:black;
+            background: var(--main-color);
+            cursor: pointer;
+        }
+
+        /* .btn:hover{
+            letter-spacing: .2rem;
+        } */
+
+        .header{
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding:1.5rem 7%;
+            border-bottom: var(--border);
+            position: fixed;
+            top:0; left: 0; right: 0;
+            z-index: 1000;
+        }
+
+        .header .logo{
+            color:#EC2545;
+        }
+
+        .header .navbar a{
+            margin:0 1.25rem;
+            font-size: 1.25rem;
+            color:black;
+        }
+
+        .header .navbar a:hover{
+            color:var(--main-color);
+            border-bottom: .1rem solid var(--main-color);
+            padding-bottom: .5rem;
+        }
+
+        .header .navbar2 a{
+            margin:0 1.5rem;
+            font-size: 1.4rem;
+            color:#EC2545;
+        }
+
+        .header .navbar2 i{
+            margin:0 -0.5rem;
+            /* margin-left:2rem; */
+            cursor: pointer;
+            font-size: 1.5rem;
+            color:#EC2545;
+        }
+
+        .popup {
+            position: relative;
+            display: inline-block;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* The actual popup */
+        .popup .popuptext {
+            visibility: hidden;
+            width: 200px;
+            background: rgba(0,0,0,0.1);
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px 0;
+            position: absolute;
+            z-index: 1;
+            top: 50%;
+            left: 50%;
+            margin-left: 70rem;
+            margin-top: 4.5rem;
+        }
+
+        /* Toggle this class - hide and show the popup */
+        .popup .show {
+            visibility: visible;
+            -webkit-animation: fadeIn 1s;
+            animation: fadeIn 1s;
+        }
+
+        /* Add animation (fade in the popup) */
+        @-webkit-keyframes fadeIn {
+            from {opacity: 0;} 
+            to {opacity: 1;}
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity:1 ;}
+        }
+
+        #prof{
+            border-radius: 5px;
+            border: 2px solid #EC2545;;
+            background: rgba(0,0,0,0.1);
+            color:#fff;
+            width: 110px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .home{
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            /* background:url(static/css/homeee.jpg) no-repeat; */
+            background: url([[@{/css/homeee.jpg}]]) no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .home .content{
+            max-width: 60rem;
+        }
+
+        .home .content h3{
+            font-size: 4rem;
+            text-transform: uppercase;
+            color:rebeccapurple;
+        }
+
+        .home .content p{
+            font-size: 2rem;
+            font-weight: lighter;
+            line-height: 1.8;
+            padding:1rem 0;
+            color:#eee;
+        }
+
+        .about h1{
+            margin-top: 1rem;
+            color:#ffbc01 ;
+        }
+        .about .row{
+            margin: 1rem;
+            display: flex;
+            align-items: center;
+            background:burlywood;
+            flex-wrap: wrap;
+        }
+
+        .about .row .image{
+            margin-top:-2rem; 
+            margin-left:8rem;
+            flex:1 1 45rem;
+        }
+
+        .about .row .image img{
+            width: 50%;
+        }
+
+        .about .row .content{
+            margin-top:-3rem; 
+            flex:1 1 45rem;
+            padding:1rem;
+        }
+
+        .about .row .content p{
+            font-size: 1.6rem;
+            align-items: right;
+            color:rgb(90, 5, 5);
+            padding:2rem 0;
+            line-height: 1.8;
+        }
+
+        .blogs .heading{
+            color:#c1897c;
+        }
+
+        .blogs .box-container{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+            gap:1.5rem;
+        }
+
+        .blogs .box-container .box{
+            border:.1rem solid black;    
+        }
+
+        .blogs .box-container .box .image{
+            height: 25rem;
+            overflow:hidden;
+            width: 100%;
+        }
+
+        .blogs .box-container .box .image img{
+            height: 100%;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .blogs .box-container .box:hover .image img{
+            transform: scale(1.2);
+        }
+
+        .blogs .box-container .box .content{
+            padding:2rem;
+        }
+
+        .blogs .box-container .box .content .title{
+            font-size: 2.5rem;
+            line-height: 1.5;
+            color:black;
+        }
+
+        .blogs .box-container .box .content .title:hover{
+            color:var(--main-color);
+        }
+
+        .blogs .box-container .box .content span{
+            color:var(--main-color);
+            display: block;
+            padding-top: 1rem;
+            font-size: 2rem;
+        }
+
+        .blogs .box-container .box .content p{
+            font-size: 1.6rem;
+            line-height: 1.8;
+            color:#ccc;
+            padding:1rem 0;
+        }
+
+        .footer{
+            background:#c1897c;
+            text-align: center;
+        }
+
+        .footer .links{
+            margin:3rem;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding:3rem 0;
+            gap:1rem;
+        }
+
+        .footer .links a{
+            padding:.3rem 2rem;
+            color:white;
+            border:var(--border);
+            font-size: 2rem;
+        }
+
+        .footer .links a:hover{
+            background:var(--main-color);
+        }
+
+        .footer .credit{
+            margin:-3rem;
+            font-size: 1.5rem;
+            color:white;
+            font-weight: lighter;
+            padding:-10rem;
+        }
+
+        .footer .credit span{
+            color:var(--main-color);
+        }
+    </style>
+</head>
+<body>
+    <form th:action="@{/homepage}" method="post">
+    <!-- HEADER -->
+    <header class="header">
+
+        <a href="#" class="logo">
+            <h2 id="logo"> Period Fl<i class="fa-solid fa-droplet"></i>w</h2>
+        </a>
+    
+        <nav class="navbar">
+            <i style="color:#F97809" class="fa-regular fa-circle-dot"></i><a th:href="@{/periodflow/home}">Home</a>
+            <i style="color:#F5A31C" class="fa-solid fa-calendar-days"></i><a th:href="@{/periodflow/tracker}">Tracker </a>
+            <i style="color:#7BE484" class="fa-sharp fa-solid fa-book-open-reader"></i><a th:href="@{/report}">Reports</a>
+            <i style="color:#3C3CDC" class="fa-sharp fa-solid fa-person-dress"></i><a th:href="@{/periodflow/PeriodGuide}">Period Guide</a>
+        </nav>
+
+        <nav class="navbar2">
+            <a th:href="@{/periodflow/register}">Signin </a>
+            <a th:href="@{/login}">Login</a>
+            <a th:href="@{/periodflow/subscription}">Subscribe</a>
+            <div class="popup" onclick="myFunction()"><i class="fa-solid fa-user" ></i></div>
+        </nav>
+ 
+    </header>
+
+    <!-- user profile pop up -->
+    <div class="popup">
+        <span class="popuptext" id="myPopup"><h2>
+                <h2><i class="fa-solid fa-circle-info"></i> User:</h2><div sec:authorize="isAuthenticated()"><span sec:authentication="name"></span></div> <hr>
+                <button value="submit" id="prof" th:formaction="@{/logout}" ><i class="fa-sharp fa-solid fa-arrow-right-from-bracket"></i> Log out</button>
+        </span>
+      </div>
+      
+      <script>
+      function myFunction() {
+        var popup = document.getElementById("myPopup");
+        popup.classList.toggle("show");
+      }
+      </script>
+
+    <!-- home section starts  -->
+    <section class="home" id="home">
+
+        <div class="content">
+            <h3>Say yes to tension free periods!</h>
+            <p>Get predictions based on the most up-to-date science </br>
+                Keep track of your cycle lengths to observe patterns </br>
+                Your predictions get more accurate every time you track
+            </p>
+        </div>
+
+    </section>
+
+    <!-- home section ends -->
+
+    <!-- about section starts  -->
+
+    <section class="about" id="about">
+
+        <h1 class="heading"> Why choose us? </h1>
+
+        <div class="row">
+
+            <div class="image"> 
+                <img th:src="@{/css/woman.jpg}" alt="">
+            </div>
+
+            <div class="content">
+                <p>Keeping track of your period helps you learn more about its frequency and length. 
+                   It can also help you see patterns in mood changes. Being in tune with your body and understanding
+                   the different hormones involved in menstruation can help you navigate your monthly cycle better.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- about section ends -->
+    
+    <!-- blogs section starts  -->
+
+    <section class="blogs" id="blogs">
+
+        <h1 class="heading"> Let us guide you.. </h1>
+
+        <div class="box-container">
+
+            <div class="box">
+                <div class="image">
+                    <img th:src="@{/css/dr1.jpg}" alt="">
+                </div>
+                <div class="content">
+                    <i class="fa-solid fa-user"></i>  Dr. Peter Dsouza </br> </br> 
+                    <i class="fa-solid fa-phone"></i>  9970541321 </br> </br>
+                    <i class="fa-solid fa-location-dot"></i>  Kothrud, Pune
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="image">
+                    <img th:src="@{/css/dr2.jpg}" alt="">
+                </div>
+                <div class="content">
+                    <i class="fa-solid fa-user"></i> Dr. Riya Sharma  </br> </br> 
+                    <i class="fa-solid fa-phone"></i>  8976544321 </br> </br>
+                    <i class="fa-solid fa-location-dot"></i>  Viman Nagar, Pune
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="image">
+                    <img th:src="@{/css/dr3.jpg}" alt="">
+                </div>
+                <div class="content">
+                    <i class="fa-solid fa-user"></i>  Dr. Leena Mehra </br> </br> 
+                    <i class="fa-solid fa-phone"></i>  9776242321 </br> </br>
+                    <i class="fa-solid fa-location-dot"></i>  Kondwa, Pune
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+    <!-- FOOTER -->
+    <section class="footer">
+
+        <div class="links">
+            <a th:href="@{/periodflow/home}">Home</a>
+            <a th:href="@{/periodflow/tracker}"> Tracker</a>
+            <a th:href="@{/report}">Reports</a>
+            <a th:href="@{/periodflow/PeriodGuide}">Period Guide</a>
+        </div>
+    
+        <div class="credit">created by <span>Fatema and Akshay</span> | all rights reserved</div>
+    
+    </section>
+</form>
+</body>
+</html>

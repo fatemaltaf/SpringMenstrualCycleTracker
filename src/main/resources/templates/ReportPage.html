@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <title>Reports</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap');
+
+        :root{
+            --main-color:#FDF0C5;
+            --black:black;
+            --bg:rgb(255, 255, 255);
+            --border:.1rem solid rgba(255,255,255,.3);
+        }
+
+        *{
+            font-family: 'Roboto', sans-serif;
+            margin:0; padding:0;
+            box-sizing: border-box;
+            outline: none; border:none;
+            text-decoration: none;
+            text-transform: capitalize;
+            transition: .2s linear;
+        }
+        .heading{
+            text-align: center;
+            color:black;
+            text-transform: uppercase;
+            padding-bottom: 3.5rem;
+            font-size: 4rem;
+        }
+
+        .heading span{
+            color:var(--main-color);
+            text-transform: uppercase;
+        }
+
+        .btn{
+            margin-top: 1rem;
+            display: inline-block;
+            padding:.9rem 3rem;
+            font-size: 1.7rem;
+            color:black;
+            background: var(--main-color);
+            cursor: pointer;
+        }
+
+        .btn:hover{
+            letter-spacing: .2rem;
+        }
+
+        .header{
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding:1.5rem 7%;
+            border-bottom: var(--border);
+            position: fixed;
+            top:0; left: 0; right: 0;
+            z-index: 1000;
+        }
+
+        .header .logo{
+            color:#EC2545;
+        }
+
+        .header .navbar a{
+            margin:0 1.25rem;
+            font-size: 1.25rem;
+            color:black;
+        }
+
+        .header .navbar a:hover{
+            color:var(--main-color);
+            border-bottom: .1rem solid var(--main-color);
+            padding-bottom: .5rem;
+        }
+
+        .header .navbar2 a{
+            margin:0 1.5rem;
+            font-size: 1.4rem;
+            color:#EC2545;
+        }
+        
+        .header .navbar2 i{
+            margin:0 -0.5rem;
+            /* margin-left:2rem; */
+            cursor: pointer;
+            font-size: 1.5rem;
+            color:#EC2545;
+        }
+
+        .popup {
+            position: relative;
+            display: inline-block;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* The actual popup */
+        .popup .popuptext {
+            visibility: hidden;
+            width: 200px;
+            background: rgba(0,0,0,0.1);
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px 0;
+            position: absolute;
+            z-index: 1;
+            top: 50%;
+            left: 50%;
+            margin-left: 70rem;
+            margin-top: 4.5rem;
+        }
+
+        /* Toggle this class - hide and show the popup */
+        .popup .show {
+            visibility: visible;
+            -webkit-animation: fadeIn 1s;
+            animation: fadeIn 1s;
+        }
+
+        /* Add animation (fade in the popup) */
+        @-webkit-keyframes fadeIn {
+            from {opacity: 0;} 
+            to {opacity: 1;}
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity:1 ;}
+        }
+
+        #prof{
+            border-radius: 5px;
+            border: 2px solid #EC2545;;
+            background: rgba(0,0,0,0.1);
+            color:#fff;
+            width: 110px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+
+        .reports .img{
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0.8;
+        /* margin-left: 0rem; */
+        }  
+
+        /* /* <!-- Reports -->  */
+
+        .reports{
+            margin:0;
+            padding: 0;
+            position: relative;
+        }
+        .reporttext1{
+            color: #EC2545;
+            position: absolute;
+            top:28rem;
+            left:24rem;
+        }
+
+        #next{
+            color:blueviolet;
+            position: absolute;
+            top:33rem;
+            left:24rem;
+        }
+
+        .reporttext2{
+            color: #EC2545;
+            position: absolute;
+            top:28rem;
+            left:45rem;
+        }
+
+        #ovu{
+            color: blueviolet;
+            position: absolute;
+            top:33.25rem;
+            left:45rem;
+        }
+
+        #to{
+            color: blueviolet;
+            position: absolute;
+            top:35rem;
+            left:50.5rem; 
+        }
+
+        #ovu2{
+            color: blueviolet;
+            position: absolute;
+            top:37rem;
+            left:45rem;
+        }
+
+        .icon-card{
+            display: flex;
+            position: relative;
+        } 
+        .icon-card .circle-icon ion-icon{
+            font-size: 14vw;      
+            /* margin-left: 25rem; */
+            transform: skewY(180 deg);
+            /* translateX(-20px) ;  */
+        }
+
+        .icon ion-icon{
+            font-size: 25vw;
+            /* margin-bottom:9rem; */
+            margin-top:-15rem;
+            margin-left: 10rem;
+        } 
+
+        #cyc{
+            position: absolute;
+            bottom:9.75rem;
+            left:15rem; 
+            color:purple;
+            font-weight: 1000;
+            font-size: 2rem;
+        } 
+
+        #length{
+            position: absolute;
+            bottom:7rem; 
+            left:18rem;
+            color:#EC2545;
+            font-weight: 1000;
+            font-size: 2rem;
+        }
+
+        #days{
+            position: absolute;
+            bottom:7rem; 
+            left:20.5rem;
+            color:#EC2545;
+            font-weight: 1000;
+            font-size: 2rem;
+        }
+
+        .calendar{
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top:-16rem;
+            margin-left:-8rem;
+            
+        }
+        .periodtext{
+            position: absolute;
+            top:65.75rem;
+            left:34rem;
+        }
+        .table{
+            position: absolute;
+            bottom:-32rem;
+            left:49rem;
+        }
+        table,th,td{
+            border-style: inset;
+            border-collapse: collapse;
+            border-color: rebeccapurple;
+        } 
+        table{
+            height: 150px;
+            width:300px;
+        }
+
+/* <!-- Reports End --> */
+        .footer{
+            background:#c1897c;
+            text-align: center;
+        }
+
+        .footer .links{
+            margin:3rem;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding:3rem 0;
+            gap:1rem;
+        }
+
+        .footer .links a{
+            padding:.3rem 2rem;
+            color:white;
+            border:var(--border);
+            font-size: 2rem;
+        }
+
+        .footer .links a:hover{
+            background:var(--main-color);
+        }
+
+        .footer .credit{
+            margin:-3rem;
+            font-size: 1.5rem;
+            color:white;
+            font-weight: lighter;
+            padding:-10rem;
+        }
+
+        .footer .credit span{
+            color:var(--main-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+
+        <a href="#" class="logo">
+            <h2 id="logo"> Period Fl<i class="fa-solid fa-droplet"></i>w</h2>
+        </a>
+    
+        <nav class="navbar">
+            <i style="color:#F97809" class="fa-regular fa-circle-dot"></i><a  th:href="@{/periodflow/home}">Home</a>
+            <i style="color:#F5A31C" class="fa-solid fa-calendar-days"></i><a th:href="@{/periodflow/tracker}">Tracker</a>
+            <i style="color:#7BE484" class="fa-sharp fa-solid fa-book-open-reader"></i><a th:href="@{/report}">Reports</a>
+            <i style="color:#3C3CDC" class="fa-sharp fa-solid fa-person-dress"></i><a th:href="@{/periodflow/PeriodGuide}">Period Guide</a>
+        </nav>
+
+        <nav class="navbar2">
+            <a th:href="@{/periodflow/register}">Signin </a>
+            <a th:href="@{/login}">Login</a>
+            <a th:href="@{/periodflow/subscription}">Subscribe</a>
+            <div class="popup" onclick="myFunction()"><i class="fa-solid fa-user" id="uicon"></i></div>
+        </nav>
+     
+    </header>
+    
+    <form th:action="@{/homepage}" method="post">
+    <!-- user profile pop up -->
+    <div class="popup">
+        <span class="popuptext" id="myPopup"><h2>
+                <h2><i class="fa-solid fa-circle-info"></i> User:</h2><div sec:authorize="isAuthenticated()"><span sec:authentication="name"></span></div> <hr>
+                <button value="submit" id="prof" th:formaction="@{/logout}" ><i class="fa-sharp fa-solid fa-arrow-right-from-bracket"></i> Log out</button>
+        </span>
+      </div>
+      
+      <script>
+      function myFunction() {
+        var popup = document.getElementById("myPopup");
+        popup.classList.toggle("show");
+      }
+      </script>
+
+    <section class="reports">
+        <div class="reportstext">
+        <div class="img">
+        <img th:src="@{/css/cal.png}" height="1100" width="1600">
+        <h2 class="reporttext1">Next Period Date</h2>
+        <h2 id="next"></h2>
+        <h2 class="reporttext2">Ovulation Date </h2>
+        <h2 id="ovu"></h2>
+        <h2 id="to">to</h2>
+        <h2 id="ovu2"></h2>
+        </div>
+        </div>
+    </section>
+    
+    
+
+    <!-- <div class="perioddate"> -->
+    <section class="trackerReport">
+       
+            <div class="icon-card">
+            <div class="circle-icon">
+            </div>   
+            <div class="icon">
+                <ion-icon name="refresh-outline" style="color:rgba(5, 5, 117, 0.897)";></ion-icon>
+                <label id="cyc">Period length</label>
+                <label id="length"></label><label id="days">days</label> 
+            </div>
+             </div>
+         <div class="calendar">
+            <img th:src="@{/css/calendar.png}" height="200" width="200">
+         </div>
+         <div class="periodtext">
+            <p>Start date:</p> <p id="sd" th:text="${tracker.start_date}" /> 
+            <br/>
+            <p>Last date:</p> <p id="ld" th:text="${tracker.last_date}" /> 
+        </div>
+        <div class="table">
+            <table >
+                <tr>
+                    <th>
+                        Period flow
+                    </th>
+                    <th>
+                        Pain
+                    </th>
+                    <th>
+                        Emotions
+                    </th>
+                </tr>
+                <tr>
+                    <td th:text="${tracker.blood_flow}"/>
+                    <td th:text="${tracker.pain}"/>
+                    <td th:text="${tracker.emotions}"/>
+                </tr>
+            </table>
+        </div>
+    </section>
+    </form>
+
+    <!-- FOOTER -->
+    <section class="footer">
+
+        <div class="links">
+            <a  th:href="@{/periodflow/home}">Home</a>
+            <a th:href="@{/periodflow/tracker}">Tracker</a>
+            <a th:href="@{/report}">Reports</a>
+            <a th:href="@{/periodflow/PeriodGuide}">Period Guide</a>
+        </div>
+    
+        <div class="credit">created by <span>Fatema and Akshay</span> | all rights reserved</div>
+    
+    </section>
+    <script type="text/javascript" th:inline="javascript">
+
+        var date_diff_indays = function() {
+        var dt1 =new Date( [[${tracker.start_date}]]);
+        var dt2 =new Date( [[${tracker.last_date}]]);
+
+        var len =Math.floor((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate()) ) /(1000 * 60 * 60 * 24));
+        
+        var ovu = dt1;
+        ovu.setDate(ovu.getDate()+14);
+        ovu1 =ovu.toDateString();
+        document.getElementById("ovu").innerHTML = ovu1;
+
+        var ovu2 = dt1;
+        ovu2.setDate(ovu2.getDate()+21);
+        ovu3 =ovu.toDateString();
+        document.getElementById("ovu2").innerHTML = ovu3;
+
+
+        var next = dt2;
+        next.setDate(next.getDate()+28);
+        next1 =next.toDateString();
+        document.getElementById("next").innerHTML = next1;
+
+        return len;
+    }
+        document.getElementById("length").innerHTML = date_diff_indays();
+    </script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
